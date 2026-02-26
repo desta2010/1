@@ -3,54 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Серёжа и звук</title>
+    <title>Серёжа · голос</title>
     <style>
-        body {
+        * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: linear-gradient(145deg, #1a0f0c 0%, #2d1a1a 100%);
             min-height: 100vh;
-            background: linear-gradient(145deg, #1a0f0c, #2d1a1a);
             display: flex;
-            justify-content: center;
             align-items: center;
-            font-family: 'Segoe UI', Arial, sans-serif;
+            justify-content: center;
+            font-family: 'Segoe UI', 'Montserrat', sans-serif;
+            padding: 20px;
         }
-        
         .card {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(15px);
-            border: 2px solid #ff6b6b;
-            border-radius: 50px;
-            padding: 40px;
+            -webkit-backdrop-filter: blur(15px);
+            border: 2px solid rgba(255, 107, 107, 0.6);
+            border-radius: 60px;
+            padding: 50px 40px;
+            max-width: 550px;
+            width: 100%;
             text-align: center;
-            max-width: 500px;
-            width: 90%;
-            box-shadow: 0 30px 60px rgba(255, 0, 100, 0.3);
+            box-shadow: 0 40px 70px rgba(0, 0, 0, 0.7);
         }
-        
         h1 {
-            color: #ffb6c1;
-            font-size: 2.5rem;
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffb6c1, #ffdab9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             margin-bottom: 20px;
-            text-shadow: 0 0 20px #ff6b6b;
+            font-family: 'Playfair Display', serif;
         }
-        
-        .sergei-photo {
+        .photo-frame {
             width: 250px;
             height: 250px;
+            margin: 20px auto 30px;
             border-radius: 50%;
-            object-fit: cover;
-            border: 5px solid #ff8c42;
-            margin: 20px auto;
-            box-shadow: 0 20px 40px black;
+            padding: 8px;
+            background: linear-gradient(135deg, #ffb347, #ff6b6b);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 0 3px rgba(255,215,0,0.3);
             animation: glow 2s infinite alternate;
         }
-        
         @keyframes glow {
-            from { box-shadow: 0 20px 40px black, 0 0 20px #ff6b6b; }
-            to { box-shadow: 0 20px 40px black, 0 0 50px #ffb347; }
+            from { box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 20px rgba(255,107,107,0.5); }
+            to { box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 50px rgba(255,193,7,0.8); }
         }
-        
-        .sound-btn {
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid white;
+        }
+        .btn {
             background: linear-gradient(145deg, #ff6b6b, #ffb347);
             border: none;
             color: white;
@@ -58,77 +69,101 @@
             font-size: 2rem;
             border-radius: 80px;
             cursor: pointer;
-            font-weight: bold;
+            font-weight: 900;
             box-shadow: 0 10px 0 #a13d3d;
-            transition: 0.2s;
+            transition: 0.1s;
             margin: 30px 0 20px;
             width: 100%;
             border: 2px solid white;
+            text-transform: uppercase;
+            letter-spacing: 3px;
         }
-        
-        .sound-btn:active {
+        .btn:active {
             transform: translateY(8px);
             box-shadow: 0 2px 0 #a13d3d;
         }
-        
+        .btn.playing {
+            background: #ff99bb;
+            transform: scale(0.98);
+        }
         .hint {
             color: rgba(255, 255, 255, 0.6);
             font-size: 1.1rem;
+            margin-top: 20px;
         }
-        
-        /* Аудио элемент скрыт, но работает */
         audio {
             display: none;
+        }
+        .emoji-big {
+            font-size: 4rem;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 5px #ff6b6b); }
+            50% { transform: scale(1.1); filter: drop-shadow(0 0 30px #ffb347); }
         }
     </style>
 </head>
 <body>
     <div class="card">
-        <h1>Серёжа, послушай 💋</h1>
-        
+        <div class="emoji-big">💋🎤</div>
+        <h1>Серёжа, послушай</h1>
+
         <!-- Фото Сергея -->
-        <img src="https://cdn.globalsportsystems.org/portraits/2021/2009/md/62704b8ba34bb.webp" 
-             alt="Серёжа" 
-             class="sergei-photo">
-        
-        <!-- Скрытый аудиоэлемент (ССЫЛКУ НУЖНО ЗАМЕНИТЬ НА ТВОЮ!) -->
-        <audio id="myAudio">
-            <source src="ССЫЛКА_НА_ТВОЙ_ФАЙЛ" type="audio/mp4">
-            <!-- Если файл в формате MP3, замени type на "audio/mpeg" -->
+        <div class="photo-frame">
+            <img src="https://cdn.globalsportsystems.org/portraits/2021/2009/md/62704b8ba34bb.webp" alt="Серёжа">
+        </div>
+
+        <!-- Аудио (скрыто) с твоим файлом -->
+        <audio id="sergeiAudio" preload="auto">
+            <source src="https://drive.google.com/uc?export=download&id=1azFqHsqAhFWlC3xpwWxxT1EebWrVABl1" type="audio/mp4">
+            Твой браузер не поддерживает аудио.
         </audio>
-        
-        <!-- Кнопка для звука -->
-        <button class="sound-btn" onclick="playSound()">
+
+        <!-- Кнопка -->
+        <button class="btn" id="playButton">
             🔊 НАЖМИ
         </button>
-        
+
         <div class="hint">
             👆 нажми — услышишь сюрприз
         </div>
     </div>
 
     <script>
+        const audio = document.getElementById('sergeiAudio');
+        const button = document.getElementById('playButton');
+
         function playSound() {
-            const audio = document.getElementById('myAudio');
-            
-            // Перематываем в начало, если уже играло
+            // Перематываем в начало
             audio.currentTime = 0;
             
-            // Пробуем воспроизвести
+            // Пытаемся воспроизвести
             audio.play().catch(error => {
-                alert('Нажми на страницу ещё раз и попробуй снова');
+                alert('Нажми на страницу ещё раз и попробуй снова (нужно разрешение браузера)');
             });
             
-            // Визуальный эффект на кнопке
-            const btn = document.querySelector('.sound-btn');
-            btn.textContent = '🔊 ИГРАЕТ!';
-            btn.style.background = '#ff99bb';
+            // Визуальный эффект
+            button.textContent = '🔊 ИГРАЕТ!';
+            button.classList.add('playing');
             
-            setTimeout(() => {
-                btn.textContent = '🔊 НАЖМИ';
-                btn.style.background = 'linear-gradient(145deg, #ff6b6b, #ffb347)';
-            }, 500);
+            // Когда звук заканчивается, возвращаем кнопку обратно
+            audio.onended = function() {
+                button.textContent = '🔊 НАЖМИ';
+                button.classList.remove('playing');
+            };
         }
+
+        // Вешаем событие на кнопку
+        button.addEventListener('click', playSound);
+
+        // Для мобильных: чтобы звук точно сработал после первого клика по странице
+        document.body.addEventListener('click', function initAudio() {
+            // Просто "будим" аудио-контекст (не играем)
+            const silentContext = new (window.AudioContext || window.webkitAudioContext)();
+            silentContext.close();
+            document.body.removeEventListener('click', initAudio);
+        }, { once: true });
     </script>
 </body>
 </html>
