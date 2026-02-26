@@ -3,68 +3,245 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Серёжа · звук</title>
+    <title>Серёжа · живые голоса</title>
     <style>
-        body {
+        * {
             margin: 0;
-            min-height: 100vh;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
             background: linear-gradient(145deg, #1a0f0c, #2d1a1a);
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', sans-serif;
             padding: 20px;
         }
-        .card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(15px);
-            border: 3px solid #ff6b6b;
-            border-radius: 60px;
-            padding: 40px;
-            max-width: 500px;
+        .container {
+            max-width: 1200px;
             width: 100%;
-            text-align: center;
         }
         h1 {
-            color: #ffb6c1;
-            font-size: 3rem;
+            text-align: center;
+            font-size: 4rem;
+            background: linear-gradient(135deg, #ffb6c1, #ffdab9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             margin-bottom: 20px;
         }
-        img {
+        .photo {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .photo img {
             width: 200px;
             height: 200px;
             border-radius: 50%;
             border: 5px solid #ffb347;
-            margin: 20px 0;
-            box-shadow: 0 20px 40px rgba(255,0,100,0.5);
+            box-shadow: 0 20px 60px #ff6b6b;
+            animation: glow 2s infinite alternate;
         }
-        audio {
-            width: 100%;
-            height: 50px;
-            margin: 20px 0;
-            border-radius: 30px;
+        @keyframes glow {
+            from { box-shadow: 0 20px 60px #ff6b6b; }
+            to { box-shadow: 0 30px 90px #ffd700; }
         }
-        .note {
-            color: #aaa;
+        .girls-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin: 40px 0;
+        }
+        @media (max-width: 900px) {
+            .girls-grid { grid-template-columns: 1fr; }
+        }
+        .girl-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            border: 4px solid;
+            border-radius: 60px;
+            padding: 40px 25px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.4s;
+            box-shadow: 0 30px 50px rgba(0,0,0,0.7);
+        }
+        .girl-card:hover {
+            transform: translateY(-20px);
+            box-shadow: 0 40px 80px rgba(255,100,100,0.6);
+        }
+        .girl-card:active {
+            transform: scale(0.97);
+        }
+        .girl-card.lida { border-color: #c7a2ff; }
+        .girl-card.sasha { border-color: #ff7eb3; }
+        .girl-card.anechka { border-color: #ffdb7e; }
+        
+        .emoji {
+            font-size: 6rem;
+            margin-bottom: 10px;
+        }
+        .name {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+        }
+        .lida .name { color: #c7a2ff; text-shadow: 0 0 20px #c7a2ff; }
+        .sasha .name { color: #ff7eb3; text-shadow: 0 0 20px #ff7eb3; }
+        .anechka .name { color: #ffdb7e; text-shadow: 0 0 20px #ffdb7e; }
+        
+        .phrase-box {
+            background: rgba(0,0,0,0.5);
+            border-radius: 50px;
+            padding: 25px;
+            margin: 25px 0;
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            color: #fff0f0;
+            border: 2px solid rgba(255,255,255,0.2);
+            line-height: 1.6;
+        }
+        .status {
+            text-align: center;
+            color: #ffb6c1;
+            font-size: 1.5rem;
+            margin-top: 40px;
+            padding: 20px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 60px;
+        }
+        .hint {
+            color: rgba(255,255,255,0.4);
             margin-top: 20px;
+            font-size: 1rem;
+        }
+        
+        /* Скрытые аудиоэлементы */
+        .hidden-audio {
+            display: none;
         }
     </style>
 </head>
 <body>
-    <div class="card">
-        <h1>🎵 Серёжа</h1>
+    <div class="container">
+        <h1>💋 ТРИ ДЕВУШКИ</h1>
         
-        <img src="https://cdn.globalsportsystems.org/portraits/2021/2009/md/62704b8ba34bb.webp" alt="Серёжа">
-        
-        <!-- ПЛЕЕР С ПРЯМОЙ ССЫЛКОЙ НА ТВОЙ ФАЙЛ -->
-        <audio controls preload="auto">
-            <source src="https://github.com/desta2010/1/raw/main/bot-tatyana_4038058.mp3" type="audio/mpeg">
-            Твой браузер не поддерживает аудио
-        </audio>
-        
-        <p class="note">
-            👆 Нажми ▶️ чтобы послушать
-        </p>
+        <div class="photo">
+            <img src="https://cdn.globalsportsystems.org/portraits/2021/2009/md/62704b8ba34bb.webp" alt="Серёжа">
+        </div>
+
+        <!-- Скрытые аудиоэлементы (все ссылки ведут на твои файлы на GitHub) -->
+        <div class="hidden-audio">
+            <!-- Лида -->
+            <audio id="audioLida" preload="auto">
+                <source src="https://github.com/desta2010/1/raw/main/malchik-petya_4038416.mp3" type="audio/mpeg">
+            </audio>
+            <!-- Саша -->
+            <audio id="audioSasha" preload="auto">
+                <source src="https://github.com/desta2010/1/raw/main/devochka-tanya_4038402.mp3" type="audio/mpeg">
+            </audio>
+            <!-- Анечка -->
+            <audio id="audioAnechka" preload="auto">
+                <source src="https://github.com/desta2010/1/raw/main/borislav_4038387.mp3" type="audio/mpeg">
+            </audio>
+        </div>
+
+        <!-- Карточки девушек -->
+        <div class="girls-grid">
+            <!-- Лида -->
+            <div class="girl-card lida" onclick="playSound('lida')">
+                <div class="emoji">🌸✨</div>
+                <div class="name">ЛИДА</div>
+                <div class="phrase-box" id="phraseLida">
+                    «Лида скучала... иди ко мне, я вся твоя, сделай мне приятно»
+                </div>
+                <div style="color: #c7a2ff; font-size: 1.3rem;">👇 нажми на меня</div>
+            </div>
+
+            <!-- Саша -->
+            <div class="girl-card sasha" onclick="playSound('sasha')">
+                <div class="emoji">💋🔥</div>
+                <div class="name">САША</div>
+                <div class="phrase-box" id="phraseSasha">
+                    «Саша хочет тебя прямо сейчас... сними с меня всё и возьми меня сильно»
+                </div>
+                <div style="color: #ff7eb3; font-size: 1.3rem;">👇 нажми на меня</div>
+            </div>
+
+            <!-- Анечка -->
+            <div class="girl-card anechka" onclick="playSound('anechka')">
+                <div class="emoji">🍑💦</div>
+                <div class="name">АНЕЧКА</div>
+                <div class="phrase-box" id="phraseAnechka">
+                    «Анечка уже мокрая... разорви мои трусики, не жди ни секунды»
+                </div>
+                <div style="color: #ffdb7e; font-size: 1.3rem;">👇 нажми на меня</div>
+            </div>
+        </div>
+
+        <div class="status" id="status">
+            👆 Нажми на любую девушку
+        </div>
+        <div class="hint">
+            ♪ Настоящие голоса, записанные специально для Серёжи
+        </div>
     </div>
+
+    <script>
+        function playSound(girl) {
+            // Получаем нужный аудиоэлемент
+            let audio;
+            let statusText = '';
+            
+            if (girl === 'lida') {
+                audio = document.getElementById('audioLida');
+                statusText = '🌸 Лида шепчет... «я вся твоя»';
+            } else if (girl === 'sasha') {
+                audio = document.getElementById('audioSasha');
+                statusText = '💋 Саша говорит... «возьми меня сильно»';
+            } else if (girl === 'anechka') {
+                audio = document.getElementById('audioAnechka');
+                statusText = '🍑 Анечка... «разорви мои трусики»';
+            }
+            
+            if (audio) {
+                // Перематываем в начало
+                audio.currentTime = 0;
+                
+                // Пробуем воспроизвести
+                audio.play().catch(error => {
+                    console.log('Ошибка воспроизведения:', error);
+                    // Если не получилось, показываем подсказку
+                    document.getElementById('status').innerHTML = '⚠️ Нажми сначала на страницу, а потом на девушку';
+                });
+                
+                // Меняем статус
+                document.getElementById('status').innerHTML = statusText;
+                
+                // Подсвечиваем активную карточку
+                const cards = document.querySelectorAll('.girl-card');
+                cards.forEach(c => c.style.transform = 'scale(1)');
+                event.currentTarget.style.transform = 'scale(1.02)';
+                
+                // Когда звук закончится, возвращаем обычный статус
+                audio.onended = function() {
+                    document.getElementById('status').innerHTML = '👆 Нажми на любую девушку';
+                    event.currentTarget.style.transform = 'scale(1)';
+                };
+            }
+        }
+        
+        // Для мобильных устройств: чтобы аудио точно работало после первого клика
+        document.body.addEventListener('click', function initAudio() {
+            // Просто "будим" аудио-контекст
+            const silentContext = new (window.AudioContext || window.webkitAudioContext)();
+            silentContext.close();
+            document.body.removeEventListener('click', initAudio);
+        }, { once: true });
+    </script>
 </body>
 </html>
