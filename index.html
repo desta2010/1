@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Серёжа и звук</title>
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(145deg, #1a0f0c, #2d1a1a);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border: 2px solid #ff6b6b;
+            border-radius: 50px;
+            padding: 40px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 30px 60px rgba(255, 0, 100, 0.3);
+        }
+        
+        h1 {
+            color: #ffb6c1;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px #ff6b6b;
+        }
+        
+        .sergei-photo {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #ff8c42;
+            margin: 20px auto;
+            box-shadow: 0 20px 40px black;
+            animation: glow 2s infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { box-shadow: 0 20px 40px black, 0 0 20px #ff6b6b; }
+            to { box-shadow: 0 20px 40px black, 0 0 50px #ffb347; }
+        }
+        
+        .sound-btn {
+            background: linear-gradient(145deg, #ff6b6b, #ffb347);
+            border: none;
+            color: white;
+            padding: 25px 50px;
+            font-size: 2rem;
+            border-radius: 80px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 10px 0 #a13d3d;
+            transition: 0.2s;
+            margin: 30px 0 20px;
+            width: 100%;
+            border: 2px solid white;
+        }
+        
+        .sound-btn:active {
+            transform: translateY(8px);
+            box-shadow: 0 2px 0 #a13d3d;
+        }
+        
+        .hint {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1.1rem;
+        }
+        
+        /* Аудио элемент скрыт, но работает */
+        audio {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Серёжа, послушай 💋</h1>
+        
+        <!-- Фото Сергея -->
+        <img src="https://cdn.globalsportsystems.org/portraits/2021/2009/md/62704b8ba34bb.webp" 
+             alt="Серёжа" 
+             class="sergei-photo">
+        
+        <!-- Скрытый аудиоэлемент (ССЫЛКУ НУЖНО ЗАМЕНИТЬ НА ТВОЮ!) -->
+        <audio id="myAudio">
+            <source src="ССЫЛКА_НА_ТВОЙ_ФАЙЛ" type="audio/mp4">
+            <!-- Если файл в формате MP3, замени type на "audio/mpeg" -->
+        </audio>
+        
+        <!-- Кнопка для звука -->
+        <button class="sound-btn" onclick="playSound()">
+            🔊 НАЖМИ
+        </button>
+        
+        <div class="hint">
+            👆 нажми — услышишь сюрприз
+        </div>
+    </div>
+
+    <script>
+        function playSound() {
+            const audio = document.getElementById('myAudio');
+            
+            // Перематываем в начало, если уже играло
+            audio.currentTime = 0;
+            
+            // Пробуем воспроизвести
+            audio.play().catch(error => {
+                alert('Нажми на страницу ещё раз и попробуй снова');
+            });
+            
+            // Визуальный эффект на кнопке
+            const btn = document.querySelector('.sound-btn');
+            btn.textContent = '🔊 ИГРАЕТ!';
+            btn.style.background = '#ff99bb';
+            
+            setTimeout(() => {
+                btn.textContent = '🔊 НАЖМИ';
+                btn.style.background = 'linear-gradient(145deg, #ff6b6b, #ffb347)';
+            }, 500);
+        }
+    </script>
+</body>
+</html>
